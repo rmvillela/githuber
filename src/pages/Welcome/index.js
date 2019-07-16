@@ -1,7 +1,7 @@
 import React from 'react';
 import api from '../../services/api';
 
-import { View, TextComponent, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -21,7 +21,7 @@ export default class Welcome extends React.Component {
   };
 
   saveUser = async (username) => {
-    await AsyncStorage.setItem('@Gihuber:username', username)
+    await AsyncStorage.setItem('@Githuber:username', username)
   }
 
   signIn = async () => {
@@ -33,12 +33,10 @@ export default class Welcome extends React.Component {
     try {
       await this.checkUserExists(username);
       await this.saveUser(username);
-      
+
       navigation.navigate('Repositories');
     } catch (err) {
       this.setState({ loading: false, error: true });
-
-      console.log('Usuário inexistente');
     }
   };
 
