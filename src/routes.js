@@ -5,13 +5,21 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import Welcome from './pages/Welcome';
 import Repositories from './pages/Repositories';
 
-const AppNavigator = createStackNavigator({
-  Welcome: {
-    screen: Welcome
+const AppNavigator = createStackNavigator(
+  {
+    Welcome: {
+      screen: Welcome
+    },
+    Repositories: {
+      screen: Repositories
+    }
   },
-  Repositories: {
-    screen: Repositories
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
   }
-});
+);
 
 export default createAppContainer(AppNavigator);
