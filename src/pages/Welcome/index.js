@@ -1,16 +1,17 @@
 import React from 'react';
 import api from '../../services/api';
 
-import { View, Text } from 'react-native';
+import { View, TextComponent, Text, TextInput, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class Welcome extends React.Component {
   state = {
-    username: ''
+    username: '',
+    loading: false,
+    error: false
   };
 
   checkUserExists = async (username) => {
@@ -27,21 +28,29 @@ export default class Welcome extends React.Component {
     const { username } = this.state;
     const { navigation } = this.props;
 
+    this.setState({ loading: true });
+
     try {
       await this.checkUserExists(username);
       await this.saveUser(username);
       
       navigation.navigate('Repositories');
     } catch (err) {
+      this.setState({ loading: false, error: true });
+
       console.log('Usuário inexistente');
     }
   };
 
   render() {
+    const { loading, error } = this.state;
+
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Bem-vindo</Text>
         <Text style={styles.text}>Para continuar precisamos que você informe seu nome de usuário</Text>
+
+        { error && <Text style={styles.error}>Usuário inexistente</Text> }
 
         <View style={styles.form}>
           <TextInput
@@ -57,7 +66,7 @@ export default class Welcome extends React.Component {
             style={styles.button} 
             onPress={this.signIn} 
           >
-            <Text style={styles.buttonText}>Prosseguir</Text>
+            { loading ? <ActivityIndicator size="small" color="#fff" /> : <Text style={styles.buttonText}>Prosseguir</Text> }
           </TouchableOpacity>
         </View>
       </View>
