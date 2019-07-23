@@ -6,6 +6,7 @@ import { colors, metrics } from '../../styles/index';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.white,
     height: Platform.OS === 'android' ? 55 : 55 + getStatusBarHeight(),
     paddingTop: Platform.OS === 'android' ? null : getStatusBarHeight(),
     borderBottomWidth: 1,

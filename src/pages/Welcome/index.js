@@ -40,7 +40,7 @@ export default class Welcome extends React.Component {
       await this.checkUserExists(username);
       await this.saveUser(username);
 
-      navigation.navigate('Repositories');
+      navigation.navigate('Users');
     } catch (err) {
       this.setState({ loading: false, error: true });
     }
